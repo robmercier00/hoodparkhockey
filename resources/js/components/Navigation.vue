@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { dashboard, login, home, records, stats, media, rules, about } from '@/routes';
+import { dashboard, login, home, records, media, rules, about } from '@/routes';
 import { rosters } from '@/routes/rosters';
 import { schedule } from '@/routes/schedule';
 import { standings } from '@/routes/standings';
+import { stats } from '@/routes/stats';
 
 </script>
 

@@ -30,15 +30,15 @@ defineProps({standings: Object})
                         <h1 class="flex w-full items-center justify-center text-[28px] mb-10 mt-10">Standings - {{ rosters }}</h1>
                         <table class="table-auto w-full border border-neutral-50">
                             <thead>
-                            <tr class="bg-neutral-900">
-                                <th class="border-1 border-neutral-600 px-4 py-2 w-1/6">Team</th>
-                                <th class="border-1 border-neutral-600 px-4 py-2">Wins</th>
-                                <th class="border-1 border-neutral-600 px-4 py-2">Loss</th>
-                                <th class="border-1 border-neutral-600 px-4 py-2">Tie</th>
-                                <th class="border-1 border-neutral-600 px-4 py-2">Points</th>
-                                <th class="border-1 border-neutral-600 px-4 py-2">Goals For</th>
-                                <th class="border-1 border-neutral-600 px-4 py-2">Goals Against</th>
-                            </tr>
+                                <tr class="bg-neutral-900">
+                                    <th class="border-1 border-neutral-600 px-4 py-2 w-1/6">Team</th>
+                                    <th class="border-1 border-neutral-600 px-4 py-2">Wins</th>
+                                    <th class="border-1 border-neutral-600 px-4 py-2">Loss</th>
+                                    <th class="border-1 border-neutral-600 px-4 py-2">Tie</th>
+                                    <th class="border-1 border-neutral-600 px-4 py-2">Points</th>
+                                    <th class="border-1 border-neutral-600 px-4 py-2">Goals For</th>
+                                    <th class="border-1 border-neutral-600 px-4 py-2">Goals Against</th>
+                                </tr>
                             </thead>
                             <tbody>
                             <tr class="bg-neutral-900" v-for="(team) in season" v-bind:key="team.id">
