@@ -4,7 +4,7 @@
 <template>
     <div class='container about-commishes'>
         <div class='col-md-12'>
-            <h2 class='flex w-full items-center justify-center pb-6 text-[16px]'>The Commissioners</h2>
+            <h2 class='flex w-full items-center justify-center pb-6 text-[16px] md:text-[28px]'>The Commissioners</h2>
         </div>
 
         <div class="table">
