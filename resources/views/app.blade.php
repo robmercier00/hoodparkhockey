@@ -18,6 +18,7 @@
                 }
             })();
         </script>
+        <script src="https://unpkg.com/@material-tailwind/html@3.0.0-beta.7/dist/material-tailwind.umd.min.js" defer></script>
 
         {{-- Inline style to set the HTML background color based on our theme in app.css --}}
         <style>

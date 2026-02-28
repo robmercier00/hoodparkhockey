@@ -4,10 +4,10 @@
 <template>
     <div class='container about-cup'>
         <div class='col-md-12'>
-            <h2 class='flex w-full items-center justify-center pb-6 text-[16px]'>The Cup</h2>
+            <h2 class='flex w-full items-center justify-center pb-6 text-[16px] md:text-[28px]'>The Cup</h2>
         </div>
 
-        <div class="table">
+        <div class="mb-12">
             <div class="cup">
                 <img src="cup.jpeg" alt="The Teemu Cup, now known as the Blizzy Memorial Cup" />
             </div>

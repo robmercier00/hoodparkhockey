@@ -8,10 +8,6 @@ Route::get('/', function () {
     return Inertia::render('Home');
 })->name('home');
 
-Route::get('/stats', function () {
-    return Inertia::render('Stats');
-})->name('stats');
-
 Route::get('/records', function () {
     return Inertia::render('Records');
 })->name('records');
@@ -36,3 +32,4 @@ require __DIR__.'/utilities.php';
 require __DIR__.'/standings.php';
 require __DIR__.'/schedule.php';
 require __DIR__.'/rosters.php';
+require __DIR__.'/stats.php';

@@ -4,10 +4,10 @@
 <template>
     <div class='container about-league'>
         <div class='col-md-12'>
-            <h2 class='flex w-full items-center justify-center pb-6 text-[16px]'>The League</h2>
+            <h2 class='flex w-full items-center justify-center pb-6 text-[16px] md:text-[28px]'>The League</h2>
         </div>
 
-        <div class="table">
+        <div class="mb-12">
             <div class="history">
                 <img src="history.jpeg" alt="Hockey team wins Teemu Cup"/>
             </div>

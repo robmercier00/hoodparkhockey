@@ -15,9 +15,9 @@ import Schedule from '@/components/WeekSchedule.vue';
     <div
         class="flex min-h-screen flex-col items-center p-6 text-[#1b1b18] lg:justify-center lg:p-8"
     >
-        <header class="mb-6 w-full max-w-[335px] text-sm not-has-[nav]:hidden xl:max-w-6xl">
+        <aside class="mb-6 w-full text-sm not-has-[nav]:hidden">
             <Navigation />
-        </header>
+        </aside>
 
         <div
             class="flex w-full items-center justify-center opacity-100 transition-opacity duration-750 lg:grow starting:opacity-0"

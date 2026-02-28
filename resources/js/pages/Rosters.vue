@@ -13,9 +13,9 @@ defineProps({rosters: Object})
     <div
         class="flex min-h-screen flex-col items-center p-6 text-[#1b1b18] lg:justify-center lg:p-8"
     >
-        <header class="mb-6 w-full max-w-[335px] text-sm not-has-[nav]:hidden xl:max-w-6xl">
+        <aside class="mb-6 w-full text-sm not-has-[nav]:hidden">
             <Navigation />
-        </header>
+        </aside>
 
         <div
             class="flex w-full items-center justify-center opacity-100 transition-opacity duration-750 lg:grow starting:opacity-0"
@@ -28,42 +28,44 @@ defineProps({rosters: Object})
                 >
                     <div v-for="(roster, season) in rosters" v-bind:key="season">
                         <div class="inline">
-                            <h1 class="flex w-full items-center justify-center text-[28px] mb-10 mt-10">{{ season }}</h1>
+                            <h1 class="flex w-full items-center justify-center text-[16px] md:text-[28px] md:mb-14 mb-7">{{ season }}</h1>
                         </div>
                         <div v-for="(players, team) in roster" v-bind:key="team">
-                            <h1 class="flex w-full items-center justify-center text-[28px] mb-10 mt-10">{{ team }}</h1>
-                            <table class="table-auto w-full border border-neutral-50">
-                                <thead>
-                                <tr class="bg-neutral-900">
-                                    <th class="border-1 border-neutral-600 px-4 py-2 w-1/6">Player</th>
-                                    <th class="border-1 border-neutral-600 px-4 py-2">Goals</th>
-                                    <th class="border-1 border-neutral-600 px-4 py-2">Assists</th>
-                                    <th class="border-1 border-neutral-600 px-4 py-2">Points</th>
-                                    <th class="border-1 border-neutral-600 px-2 py-2"></th>
-                                    <th class="border-1 border-neutral-600 px-4 py-2">Goals Against</th>
-                                    <th class="border-1 border-neutral-600 px-4 py-2">GAA</th>
-                                    <th class="border-1 border-neutral-600 px-4 py-2">Shots Against</th>
-                                    <th class="border-1 border-neutral-600 px-4 py-2">Save %</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr class="bg-neutral-900" v-for="(player) in players" v-bind:key="player.id">
-                                    <td class="border-1 border-neutral-600 px-4 py-2 w-1/6">{{ player.player_name }}</td>
-                                    <td class="border-1 border-neutral-600 px-4 py-2">{{ player.goals }}</td>
-                                    <td class="border-1 border-neutral-600 px-4 py-2">{{ player.assists }}</td>
-                                    <td class="border-1 border-neutral-600 px-4 py-2">{{ +player.goals + +player.assists }}</td>
-                                    <td class="border-1 border-neutral-600 px-2 py-2"></td>
-                                    <td class="border-1 border-neutral-600 px-4 py-2">{{ player.goals_against }}</td>
-                                    <td class="border-1 border-neutral-600 px-4 py-2">
-                                        {{ player.is_goalie ? (+player.goals_against / +player.games_played).toFixed(2) : null }}
-                                    </td>
-                                    <td class="border-1 border-neutral-600 px-4 py-2">{{ player.shots_against }}</td>
-                                    <td class="border-1 border-neutral-600 px-4 py-2">
-                                        {{ player.is_goalie ? ((+player.shots_against - +player.goals_against) / (player.shots_against)).toFixed(3) : null }}
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                            <h1 class="flex w-full items-center justify-center text-[16px] md:text-[28px] mb-10 mt-10">{{ team }}</h1>
+                            <div class="overflow-x-scroll lg:overflow-x-auto">
+                                <table class="table-auto w-full border border-neutral-50 overflow-x-auto">
+                                    <thead>
+                                    <tr class="bg-neutral-900">
+                                        <th class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2 w-1/6">Player</th>
+                                        <th class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">Goals</th>
+                                        <th class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">Assists</th>
+                                        <th class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">Points</th>
+                                        <th class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-2 py-2"></th>
+                                        <th class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">Goals Against</th>
+                                        <th class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">GAA</th>
+                                        <th class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">Shots Against</th>
+                                        <th class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">Save %</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="bg-neutral-900" v-for="(player) in players" v-bind:key="player.id">
+                                        <td class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2 w-1/6">{{ player.player_name }}</td>
+                                        <td class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">{{ player.goals }}</td>
+                                        <td class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">{{ player.assists }}</td>
+                                        <td class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">{{ +player.goals + +player.assists }}</td>
+                                        <td class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-2 py-2"></td>
+                                        <td class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">{{ player.goals_against }}</td>
+                                        <td class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">
+                                            {{ player.is_goalie ? (+player.goals_against / +player.games_played).toFixed(2) : null }}
+                                        </td>
+                                        <td class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">{{ player.shots_against }}</td>
+                                        <td class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">
+                                            {{ player.is_goalie ? ((+player.shots_against - +player.goals_against) / (player.shots_against)).toFixed(3) : null }}
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
