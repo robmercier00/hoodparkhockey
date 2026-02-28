@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('seasons', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamp('start_date')->nullable();
-            $table->timestamp('end_date')->nullable();
-            $table->unsignedTinyInteger('current_season')->default(0)->index();
+        Schema::create('all_time_records', function (Blueprint $table) {
+            $table->text('record_name');
+            $table->text('player_team_name');
+            $table->text('record_text');
+            $table->text('record_accomplished');
         });
     }
 
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('seasons');
+        Schema::dropIfExists('all_time_records');
     }
 };

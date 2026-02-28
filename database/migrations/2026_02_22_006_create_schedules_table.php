@@ -16,10 +16,8 @@ return new class extends Migration
             $table->foreignId('season_id')->references('id')->on('seasons');
             $table->foreignId('home_team')->references('id')->on('teams');
             $table->unsignedInteger('home_team_goals')->default(0);
-            $table->unsignedInteger('home_team_shots')->default(0);
             $table->foreignId('away_team')->references('id')->on('teams');
             $table->unsignedInteger('away_team_goals')->default(0);
-            $table->unsignedInteger('away_team_shots')->default(0);
             $table->dateTime('game_date_time');
         });
     }
