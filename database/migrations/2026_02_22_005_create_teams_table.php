@@ -19,14 +19,18 @@ return new class extends Migration
             $table->unsignedInteger('loss')->default(0);
             $table->unsignedInteger('tie')->default(0);
             $table->unsignedInteger('points')->default(0);
+            $table->string('color')->nullable()->default(null);
+            $table->unsignedInteger('goals_for')->default(0);
+            $table->unsignedInteger('goals_against')->default(0);
         });
 
         Schema::create('team_players', function (Blueprint $table) {
             $table->foreignId('team_id')->references('id')->on('teams');
             $table->foreignId('player_id')->references('id')->on('players');
+            $table->text('name')->nullable()->default(null);
             $table->unsignedInteger('goals')->default(0);
             $table->unsignedInteger('assists')->default(0);
-            $table->boolean('is_goalie')->default(false);
+            $table->unsignedTinyInteger('is_goalie')->default(0);
             $table->unsignedInteger('shots_against')->nullable();
             $table->unsignedInteger('goals_against')->nullable();
             $table->unsignedInteger('games_played')->nullable();
