@@ -28,7 +28,7 @@ defineProps({rosters: Object})
                 >
                     <div v-for="(roster, season) in rosters" v-bind:key="season">
                         <div class="inline">
-                            <h1 class="flex w-full items-center justify-center text-[16px] md:text-[28px] mb-14">{{ season }}</h1>
+                            <h1 class="flex w-full items-center justify-center text-[16px] md:text-[28px] md:mb-14 mb-7">{{ season }}</h1>
                         </div>
                         <div v-for="(players, team) in roster" v-bind:key="team">
                             <h1 class="flex w-full items-center justify-center text-[16px] md:text-[28px] mb-10 mt-10">{{ team }}</h1>

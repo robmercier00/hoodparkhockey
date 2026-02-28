@@ -26,24 +26,27 @@ defineProps({stats: Object})
                 <div
                     class="flex-1 rounded-br-lg rounded-bl-lg bg-white p-6 pb-12 shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] lg:rounded-tl-lg lg:rounded-br-none lg:p-20 dark:bg-[#161615] dark:text-[#EDEDEC] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d]"
                 >
-                    <table class="table-auto w-full border border-neutral-50">
-                        <thead>
-                            <tr class="bg-neutral-900">
-                                <th class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">Player</th>
-                                <th class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">Goals</th>
-                                <th class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">Assists</th>
-                                <th class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">Points</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="bg-neutral-900" v-for="(player) in stats" v-bind:key="player.player_id">
-                                <td class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">{{ player.player_name }} - {{ player.team_name }}</td>
-                                <td class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">{{ player.goals }}</td>
-                                <td class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">{{ player.assists }}</td>
-                                <td class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">{{ +player.goals + +player.assists }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="md:mb-12 mb-6" v-for="(stats, index) in ['Player Stats', 'Goalies Stats']" v-bind:key="index">
+                        <h1 class="flex w-full items-center justify-center text-[16px] md:text-[28px] mb-10">{{ stats }}</h1>
+                        <table class="table-auto w-full border border-neutral-50">
+                            <thead>
+                                <tr class="bg-neutral-900">
+                                    <th class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">Player</th>
+                                    <th class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">Goals</th>
+                                    <th class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">Assists</th>
+                                    <th class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">Points</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-neutral-900" v-for="player in stats" v-bind:key="player.player_id">
+                                    <td class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">{{ player.player_name }} - {{ player.team_name }}</td>
+                                    <td class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">{{ player.goals }}</td>
+                                    <td class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">{{ player.assists }}</td>
+                                    <td class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">{{ +player.goals + +player.assists }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
             </main>
