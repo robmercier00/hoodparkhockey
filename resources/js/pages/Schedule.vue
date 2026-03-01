@@ -54,9 +54,3 @@ defineProps({ schedule: Object });
     </div>
 </template>
 
-<script lang="ts">
-// export default function getGameTime(game_date_time: string) {
-//     return new Date(game_date_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-// }
-
-</script>

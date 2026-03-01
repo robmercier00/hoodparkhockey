@@ -33,7 +33,7 @@ defineProps({rosters: Object})
                         <div v-for="(players, team) in roster" v-bind:key="team">
                             <h1 class="flex w-full items-center justify-center text-[16px] md:text-[28px] mb-10 mt-10">{{ team }}</h1>
                             <div class="overflow-x-scroll lg:overflow-x-auto">
-                                <table class="table-auto w-full border border-neutral-50 overflow-x-auto">
+                                <table class="table-auto w-full border border-neutral-50">
                                     <thead>
                                     <tr class="bg-neutral-900">
                                         <th class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2 w-1/6">Player</th>

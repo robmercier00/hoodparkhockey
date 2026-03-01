@@ -10,14 +10,14 @@ import { stats } from '@/routes/stats';
 </script>
 
 <template>
-    <button 
-        data-toggle="collapse" 
-        data-target="#collapseButton" 
-        aria-expanded="false" 
-        aria-controls="collapseButton" 
-        class="md:fixed items-center justify-center border align-middle text-center transition-all duration-300 ease-in 
-            disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed data-[shape=pill]:rounded-full 
-            data-[width=full]:w-full focus:shadow-none text-sm rounded-md py-2 px-4 shadow-sm hover:shadow-md bg-slate-800 
+    <button
+        data-toggle="collapse"
+        data-target="#collapseButton"
+        aria-expanded="false"
+        aria-controls="collapseButton"
+        class="md:fixed items-center justify-center border align-middle text-center transition-all duration-300 ease-in
+            disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed data-[shape=pill]:rounded-full
+            data-[width=full]:w-full focus:shadow-none text-sm rounded-md py-2 px-4 shadow-sm hover:shadow-md bg-slate-800
             border-slate-800 text-slate-50 hover:bg-slate-700 hover:border-slate-700"
     >
         ☰
@@ -60,9 +60,9 @@ import { stats } from '@/routes/stats';
                 Records
             </Link>
             <Link
-                :href="stats()"
+                :href="stats({query: {'stats': 'player'}})"
                 class="inline-block rounded-sm border border-transparent px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#19140035] dark:text-[#EDEDEC] dark:hover:border-[#3E3E3A]"
-                :class="{ 'active': $page.url === '/stats' }"
+                :class="{ 'active': $page.url === '/stats?stats=player' || $page.url === '/stats?stats=goalie'}"
             >
                 Stats
             </Link>

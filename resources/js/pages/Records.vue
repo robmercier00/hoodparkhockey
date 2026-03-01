@@ -29,7 +29,7 @@ defineProps({records: Object});
                     <h1 class="flex w-full items-center justify-center text-[16px] md:text-[28px] mb-10">All-Time Records</h1>
                     <div class="md:mb-12 mb-6" v-for="(allTimeRecord, recordName) in records" v-bind:key="recordName">
                         <h1 class="flex w-full text-[11px] md:text-[22px] mb-2">{{ recordName }}</h1>
-                        <div class="flex mb-6" v-for="record in allTimeRecord" v-bind:key="record.player_team_name">
+                        <div class="mb-6" v-for="record in allTimeRecord" v-bind:key="record.player_team_name">
                             <span class="text-[11px] md:text-[18px] ml-8">{{ record[0] }}&nbsp;&nbsp;-&nbsp;&nbsp;</span>
                             <span class="text-[11px] md:text-[18px]">  {{ record[1].replace(';', ', ') }},&nbsp;&nbsp;</span>
                             <span class="text-[11px] md:text-[18px]">{{ record[2] }}</span>
