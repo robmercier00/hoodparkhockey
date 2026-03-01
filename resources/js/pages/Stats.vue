@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
+import { Link } from '@inertiajs/vue3';
 import Navigation from '@/components/Navigation.vue';
+import { stats } from '@/routes/stats';
 
-defineProps({stats: Object})
+defineProps({playerStats: Object})
 </script>
 
 <template>
@@ -26,26 +28,104 @@ defineProps({stats: Object})
                 <div
                     class="flex-1 rounded-br-lg rounded-bl-lg bg-white p-6 pb-12 shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] lg:rounded-tl-lg lg:rounded-br-none lg:p-20 dark:bg-[#161615] dark:text-[#EDEDEC] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d]"
                 >
-                    <div class="md:mb-12 mb-6" v-for="(stats, index) in ['Player Stats', 'Goalies Stats']" v-bind:key="index">
-                        <h1 class="flex w-full items-center justify-center text-[16px] md:text-[28px] mb-10">{{ stats }}</h1>
-                        <table class="table-auto w-full border border-neutral-50">
-                            <thead>
-                                <tr class="bg-neutral-900">
-                                    <th class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">Player</th>
-                                    <th class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">Goals</th>
-                                    <th class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">Assists</th>
-                                    <th class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">Points</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="bg-neutral-900" v-for="player in stats" v-bind:key="player.player_id">
-                                    <td class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">{{ player.player_name }} - {{ player.team_name }}</td>
-                                    <td class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">{{ player.goals }}</td>
-                                    <td class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">{{ player.assists }}</td>
-                                    <td class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">{{ +player.goals + +player.assists }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div>
+                        <h1 class="flex w-full items-center justify-center text-[16px] md:text-[28px] mb-10">Stats</h1>
+                        <div class="flex cols-2 w-full border">
+                            <Link
+                                :href="stats({query: {'stats': 'player'}})"
+                                class="rounded-tl-lg rounded-tr-lg p-6 mr-2 w-full text-[16px] md:text-[28px]"
+                                :class="{ 'bg-neutral-700': $page.url === '/stats?stats=player' }"
+                            >
+                                Player
+                            </Link>
+                            <Link
+                                :href="stats({query: {'stats': 'goalie'}})"
+                                class="rounded-tl-lg rounded-tr-lg  p-6 ml-2 w-full text-[16px] md:text-[28px]"
+                                :class="{ 'bg-neutral-700': $page.url === '/stats?stats=goalie' }"
+                            >
+                                Goalie
+                            </Link>
+                        </div>
+                        <div class="overflow-x-scroll lg:overflow-x-auto">
+                            <table class="table-auto w-full border border-neutral-50 lg:overflow-x-auto">
+                                <thead>
+                                    <tr class="bg-neutral-900">
+                                        <th class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">Player</th>
+                                        <th class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">Goals</th>
+                                        <th class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">Assists</th>
+                                        <th class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">Points</th>
+                                        <th
+                                            :class="{'hidden': $page.url !== '/stats?stats=goalie' }"
+                                            class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2"
+                                        >
+                                            Goals Against
+                                        </th>
+                                        <th
+                                            :class="{'hidden': $page.url !== '/stats?stats=goalie' }"
+                                            class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2"
+                                        >
+                                            GAA
+                                        </th>
+                                        <th
+                                            :class="{'hidden': $page.url !== '/stats?stats=goalie' }"
+                                            class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2"
+                                        >
+                                            Shots Against
+                                        </th>
+                                        <th
+                                            :class="{'hidden': $page.url !== '/stats?stats=goalie' }"
+                                            class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2"
+                                        >
+                                            Save %
+                                        </th>
+                                        <th
+                                            :class="{'hidden': $page.url !== '/stats?stats=goalie' }"
+                                            class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2"
+                                        >
+                                            Shutouts
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bg-neutral-900" v-for="player in playerStats" v-bind:key="player.player_id">
+                                        <td class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">{{ player.player_name }} - {{ player.team_name }}</td>
+                                        <td class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">{{ +player.goals }}</td>
+                                        <td class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">{{ +player.assists }}</td>
+                                        <td class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2">{{ +player.goals + +player.assists }}</td>
+                                        <td
+                                            :class="{'hidden': $page.url !== '/stats?stats=goalie' }"
+                                            class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2"
+                                        >
+                                            {{ +player.goals_against }}
+                                        </td>
+                                        <td
+                                            :class="{'hidden': $page.url !== '/stats?stats=goalie' }"
+                                            class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2"
+                                        >
+                                            {{ (+player.goals_against / +player.games_played).toFixed(2) }}
+                                        </td>
+                                        <td
+                                            :class="{'hidden': $page.url !== '/stats?stats=goalie' }"
+                                            class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2"
+                                        >
+                                            {{ +player.shots_against }}
+                                        </td>
+                                        <td
+                                            :class="{'hidden': $page.url !== '/stats?stats=goalie' }"
+                                            class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2"
+                                        >
+                                            {{ ((+player.shots_against - +player.goals_against) / (player.shots_against)).toFixed(3) }}
+                                        </td>
+                                        <td
+                                            :class="{'hidden': $page.url !== '/stats?stats=goalie' }"
+                                            class="text-[11px] md:text-[15px] border-1 border-neutral-600 px-4 py-2"
+                                        >
+                                            {{ +player.shutouts }}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 

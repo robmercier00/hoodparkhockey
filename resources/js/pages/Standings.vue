@@ -27,7 +27,7 @@ defineProps({standings: Object})
                     class="flex-1 rounded-br-lg rounded-bl-lg bg-white p-6 pb-12 text-[11px] md:text-[16px] shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] lg:rounded-tl-lg lg:rounded-br-none lg:p-20 dark:bg-[#161615] dark:text-[#EDEDEC] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d]"
                 >
                     <div v-for="(season, rosters) in standings" v-bind:key="rosters">
-                        <h1 class="flex w-full items-center justify-center text-[16px] md:text-[28px] mb-10 mt-10">Standings - {{ rosters }}</h1>
+                        <h1 class="flex w-full items-center justify-center text-[16px] md:text-[28px] mb-10">Standings - {{ rosters }}</h1>
                         <div class="overflow-x-scroll lg:overflow-x-auto">
                             <table class="table-auto w-full border border-neutral-50">
                                 <thead>
