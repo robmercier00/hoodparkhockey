@@ -30,3 +30,5 @@ require __DIR__.'/schedule.php';
 require __DIR__.'/rosters.php';
 require __DIR__.'/stats.php';
 require __DIR__.'/records.php';
+require __DIR__.'/login.php';
+require __DIR__.'/seasons.php';
