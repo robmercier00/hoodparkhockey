@@ -2,8 +2,8 @@
 import { Head, Link } from '@inertiajs/vue3';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { dashboard, home } from '@/routes';
+import { season } from '@/routes/seasons';
 import { type BreadcrumbItem } from '@/types';
-import PlaceholderPattern from '../components/PlaceholderPattern.vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -53,13 +53,21 @@ const breadcrumbs: BreadcrumbItem[] = [
                 <div
                     class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border"
                 >
-                    <h1 class="flex w-full items-center justify-center text-[16px] md:text-[28px] mb-10">Players</h1>
+                    <h1 class="flex w-full items-center justify-center text-[16px] md:text-[28px] mb-10">Add New...</h1>
+                    <div class="flex w-full items-center justify-center text-sm">
+                        <Link
+                            :href="season()"
+                            class="inline-block rounded-sm border border-transparent px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#19140035] dark:text-[#EDEDEC] dark:hover:border-[#3E3E3A]"
+                        >
+                            Season
+                        </Link>
+                    </div>
                     <div class="flex w-full items-center justify-center text-sm">
                         <Link
                             :href="home()"
                             class="inline-block rounded-sm border border-transparent px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#19140035] dark:text-[#EDEDEC] dark:hover:border-[#3E3E3A]"
-                            >
-                                Add Player
+                        >
+                            Player
                         </Link>
                     </div>
                 </div>

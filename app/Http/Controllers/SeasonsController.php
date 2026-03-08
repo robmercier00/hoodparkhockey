@@ -24,4 +24,42 @@ class SeasonsController extends Controller
 
         return $allSeasons;
     }
+
+    public function createSeason(Request $request): int|string
+    {
+        $seasonData = $request->json()->all();
+        $newSeason = [
+            "name" => $seasonData['seasonName'],
+            "start_date" => $seasonData['startDate'],
+            "end_date" => $seasonData['endDate'],
+            "current_season" => isset($seasonData['currentSeason']) ? 1 : 0
+        ];
+
+        try {
+            // Insert the user data and retrieve the last inserted ID
+            $lastInsertedId = DB::table('seasons')->insertGetId($newSeason);
+        } catch (Exception $e) {
+            return "Exception when inserting new season: " . $e->getMessage();
+        }
+
+        $numberOfTeams = $seasonData['numTeams'];
+
+        // Process the number of teams
+        for ($i = 0; $i < (int) $numberOfTeams; $i++) {
+            $newTeam = [
+                "name" => $seasonData['teamName' . $i + 1],
+                "season_id" => $lastInsertedId,
+                "color" => $seasonData['teamColor' . $i + 1]
+            ];
+            // insert team with name, color, and season_id
+
+            try {
+                $newTeamInserted = DB::table("teams")->insertGetId($newTeam);
+            } catch (Exception $e) {
+                return "Exception when inserting new team: " . $e->getMessage();
+            }
+        }
+
+        return $lastInsertedId;
+    }
 }
