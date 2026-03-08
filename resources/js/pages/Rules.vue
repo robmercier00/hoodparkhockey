@@ -47,7 +47,7 @@ import Navigation from '@/components/Navigation.vue';
                                 <h6>Penalties:</h6>
                                 All penalties will be 1 minute in length, unless an injury occurs, in which case it will be 2 minutes (double minor).<br />
                                 Penalties that will be called:
-                                <ul>
+                                <ul class="list-disc ml-8">
                                     <li>Roughing</li>
                                     <li>Tripping</li>
                                     <li>Elbowing</li>
@@ -56,17 +56,17 @@ import Navigation from '@/components/Navigation.vue';
                                     <li>Hooking</li>
                                     <li>Goaltender interference</li>
                                     <li>Highsticking</li>
-                                    <ul>
+                                    <ul class="list-disc ml-8">
                                         <li>any time a stick is raised over crossbar height while in the vicinity of other players, it will result in a highsticking penalty</li>
                                     </ul>
                                     <li>Delay of game</li>
-                                    <ul>
+                                    <ul class="list-disc ml-8">
                                         <li>A goalie will be called for delay of game for covering the ball outside of the crease</li>
                                     </ul>
                                     <li>Unsportsmanlike conduct</li>
-                                    <ul>
+                                    <ul class="list-disc ml-8">
                                         <li>Unsportsmanlike conduct includes</li>
-                                        <ul>
+                                        <ul class="list-disc ml-8">
                                             <li>Abuse of officials</li>
                                             <li>Excessive taunting</li>
                                             <li>Complaining</li>
@@ -116,7 +116,7 @@ import Navigation from '@/components/Navigation.vue';
                             </div>
                             <div class="section">
                                 <h6>Odds and Ends:</h6>
-                                <ul>
+                                <ul class="list-disc ml-8">
                                     <li>Players must wear a shirt or jersey that is the same as their team color.</li>
                                     <li>Hand pass will be allowed in the defensive zone; if it occurs in the offensive zone, it will result in the play being blown dead, and possession changing.</li>
                                     <li>Goals cannot be kicked in or gloved in.</li>

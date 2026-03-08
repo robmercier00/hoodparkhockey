@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Hood Park Hockey'),
+    'name' => env('APP_NAME', 'Hood Park Hockey League'),
 
     /*
     |--------------------------------------------------------------------------

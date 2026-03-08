@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid } from 'lucide-vue-next';
+import { Badge, Calendar, ChartBar, ChartBarStacked, ClipboardPenLineIcon, Contact, Home, LayoutGrid, MedalIcon, PersonStanding, VideoIcon } from 'lucide-vue-next';
 import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
 import NavUser from '@/components/NavUser.vue';
@@ -8,16 +7,61 @@ import {
     Sidebar,
     SidebarContent,
     SidebarFooter,
-    SidebarHeader,
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { dashboard } from '@/routes';
+import { dashboard, home, media, rules, about } from '@/routes';
+import { records } from '@/routes/records';
+import { rosters } from '@/routes/rosters';
+import { schedule } from '@/routes/schedule';
+import { standings } from '@/routes/standings';
+import { stats } from '@/routes/stats';
 import { type NavItem } from '@/types';
-import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
+    {
+        title: 'HPHL Home',
+        href: home(),
+        icon: Home,
+    },
+    {
+        title: 'Schedule',
+        href: schedule(),
+        icon: Calendar
+    },
+    {
+        title: 'Rosters',
+        href: rosters(),
+        icon: Contact,
+    },
+    {
+        title: 'Standings',
+        href: standings(),
+        icon: ChartBar,
+    },
+    {
+        title: 'Records',
+        href: records(),
+        icon: MedalIcon,
+    },
+    {
+        title: 'Stats',
+        href: stats(),
+        icon: ChartBarStacked,
+    },
+    {
+        title: 'Media',
+        href: media(),
+        icon: VideoIcon,
+    },
+    {
+        title: 'Rules',
+        href: rules(),
+        icon: ClipboardPenLineIcon,
+    },
+    {
+        title: 'About',
+        href: about(),
+        icon: PersonStanding,
+    },
     {
         title: 'Dashboard',
         href: dashboard(),
@@ -26,33 +70,12 @@ const mainNavItems: NavItem[] = [
 ];
 
 const footerNavItems: NavItem[] = [
-    {
-        title: 'Github Repo',
-        href: 'https://github.com/laravel/vue-starter-kit',
-        icon: Folder,
-    },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#vue',
-        icon: BookOpen,
-    },
+
 ];
 </script>
 
 <template>
     <Sidebar collapsible="icon" variant="inset">
-        <SidebarHeader>
-            <SidebarMenu>
-                <SidebarMenuItem>
-                    <SidebarMenuButton size="lg" as-child>
-                        <Link :href="dashboard()">
-                            <AppLogo />
-                        </Link>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
-            </SidebarMenu>
-        </SidebarHeader>
-
         <SidebarContent>
             <NavMain :items="mainNavItems" />
         </SidebarContent>

@@ -315,8 +315,6 @@
 }
 
 ul {
-    list-style-type: disc;
-    margin: .5em 0 .5em 2em;
 }
 
 li::marker {
