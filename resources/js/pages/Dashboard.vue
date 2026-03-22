@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { dashboard, home } from '@/routes';
-import { season } from '@/routes/seasons';
+import { dashboard, season, home, announcement } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -26,13 +25,13 @@ const breadcrumbs: BreadcrumbItem[] = [
                 >
                     <h1 class="flex w-full items-center justify-center text-[16px] md:text-[28px] mb-10">Current Season(s)</h1>
 
-                    <div v-for="season in seasons" v-bind:key="season.id">
-                        <div v-if="season.current_season === 1" class="flex w-full items-center justify-center text-sm">
+                    <div v-for="singleSeason in seasons" v-bind:key="singleSeason.id">
+                        <div v-if="singleSeason.current_season === 1" class="flex w-full items-center justify-center text-sm">
                             <Link
-                                :href="home()"
+                                :href="season({query: {'season_id': singleSeason.id}})"
                                 class="inline-block rounded-sm border border-transparent px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#19140035] dark:text-[#EDEDEC] dark:hover:border-[#3E3E3A]"
                             >
-                                <span>{{ season.name }}&nbsp;&nbsp;&nbsp;&nbsp;{{ season.start_date }} - {{ season.end_date }}</span>
+                                <span>{{ singleSeason.name }}&nbsp;&nbsp;&nbsp;&nbsp;{{ singleSeason.start_date }} - {{ singleSeason.end_date }}</span>
                             </Link>
                         </div>
                     </div>
@@ -56,6 +55,14 @@ const breadcrumbs: BreadcrumbItem[] = [
                     <h1 class="flex w-full items-center justify-center text-[16px] md:text-[28px] mb-10">Add New...</h1>
                     <div class="flex w-full items-center justify-center text-sm">
                         <Link
+                            :href="announcement()"
+                            class="inline-block rounded-sm border border-transparent px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#19140035] dark:text-[#EDEDEC] dark:hover:border-[#3E3E3A]"
+                        >
+                            Announcement
+                        </Link>
+                    </div>
+                    <div class="flex w-full items-center justify-center text-sm">
+                        <Link
                             :href="season()"
                             class="inline-block rounded-sm border border-transparent px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#19140035] dark:text-[#EDEDEC] dark:hover:border-[#3E3E3A]"
                         >
@@ -72,21 +79,35 @@ const breadcrumbs: BreadcrumbItem[] = [
                     </div>
                 </div>
             </div>
-            <div
-                class="relative min-h-[100vh] flex-1 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border"
-            >
-                <h1 class="flex w-full items-center justify-center text-[16px] md:text-[28px] mb-10">All Seasons</h1>
-                <div v-for="season in seasons" v-bind:key="season.id">
-                    <div class="flex w-full items-center md:justify-center text-sm">
-                        <Link
-                            :href="home()"
-                            class="inline-block rounded-sm border border-transparent px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#19140035] dark:text-[#EDEDEC] dark:hover:border-[#3E3E3A]"
+            <div class="grid auto-rows-min gap-4 md:grid-cols-3">
+                <div
+                    class="relative min-h-[100vh] flex-1 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border"
+                >
+                    <h1 class="flex w-full items-center justify-center text-[16px] md:text-[28px] mb-10">All Seasons</h1>
+                    <div v-for="singleSeason in seasons" v-bind:key="singleSeason.id">
+                        <div class="flex w-full items-center md:justify-center text-sm">
+                            <Link
+                                :href="season({query: {'season_id': singleSeason.id}})"
+                                class="inline-block rounded-sm border border-transparent px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#19140035] dark:text-[#EDEDEC] dark:hover:border-[#3E3E3A]"
                             >
-                                {{ season.name }}
-                        </Link>
-                    
-                        {{ season.start_date }} - {{ season.end_date }}
+                                    {{ singleSeason.name }}
+                            </Link>
+                        
+                            {{ singleSeason.start_date }} - {{ singleSeason.end_date }}
+                        </div>
                     </div>
+                </div>
+                <div
+                    class="relative min-h-[100vh] flex-1 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border"
+                >
+                    <h1></h1>
+                    <div></div>
+                </div>
+                <div
+                    class="relative min-h-[100vh] flex-1 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border"
+                >
+                    <h1></h1>
+                    <div></div>
                 </div>
             </div>
         </div>

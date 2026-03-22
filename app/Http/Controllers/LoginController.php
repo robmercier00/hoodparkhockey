@@ -16,7 +16,7 @@ class LoginController extends Controller
     /**
      * Handle an authentication attempt.
      */
-    public function authenticate(Request $request): RedirectResponse|string
+    public function authenticate(Request $request): Response|string
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
@@ -25,10 +25,10 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
- 
-            return redirect()->intended('dashboard');
+
+            return Inertia::render('Dashboard');
         }
- 
+
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');
