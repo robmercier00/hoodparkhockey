@@ -20,7 +20,11 @@ Route::get('/about', function () {
     return Inertia::render('About');
 })->name('about');
 
-Route::get('dashboard', function () {
+Route::get('announcement', function () {
+    return Inertia::render('Announcement');
+})->middleware(['verified'])->name('announcement');
+
+Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -32,3 +36,4 @@ require __DIR__.'/stats.php';
 require __DIR__.'/records.php';
 require __DIR__.'/login.php';
 require __DIR__.'/seasons.php';
+require __DIR__.'/players.php';

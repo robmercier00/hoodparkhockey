@@ -350,6 +350,23 @@ a {
     }
 }
 
+.dropdown {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 150px;
+    overflow-y: auto;
+    position: relative;
+    width: 200px;
+    z-index: 10;
+}
+.dropdown div {
+    padding: 8px;
+    cursor: pointer;
+}
+.dropdown div:hover {
+    background-color: #525252;
+}
+
 @media only screen and (max-width: 600px) {
     .cup > img {
         padding: 0 3em;

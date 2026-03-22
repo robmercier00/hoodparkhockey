@@ -12,4 +12,6 @@ Route::get('season', function () {
     return Inertia::render('Season');
 })->middleware(['verified'])->name('season');
 
-Route::post('season', [SeasonsController::class, 'createSeason'])->name('seasons.create-season');
+Route::get('single-season', [SeasonsController::class, 'getSeason'])->name('seasons.get-season');
+
+Route::post('season', [SeasonsController::class, 'createOrUpdateSeason'])->name('seasons.create-season');
