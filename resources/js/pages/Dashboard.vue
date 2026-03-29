@@ -106,8 +106,17 @@ const breadcrumbs: BreadcrumbItem[] = [
                 <div
                     class="relative min-h-[100vh] flex-1 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border"
                 >
-                    <h1></h1>
-                    <div></div>
+                    <h1 class="flex w-full items-center justify-center text-[16px] md:text-[28px] mb-10">Announcements</h1>
+                    <div v-for="singleAnnouncement in announcements" v-bind:key="singleAnnouncement.id">
+                        <div class="flex w-full items-center md:justify-center text-sm">
+                            <Link
+                                :href="announcement({query: {'announcement_id': singleAnnouncement.id}})"
+                                class="inline-block rounded-sm border border-transparent px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#19140035] dark:text-[#EDEDEC] dark:hover:border-[#3E3E3A]"
+                            >
+                                    {{ new Date(singleAnnouncement.created_at).toDateString() }}
+                            </Link>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -122,6 +131,7 @@ export default {
     data() {
         return {
             seasons: [{id: 0, name: 'New Season', start_date: null, end_date: null, current_season: null}],
+            announcements: [{id: 0, created_at: '0000-00-00', announcement: ''}],
         };
     },
     methods: {
@@ -133,12 +143,24 @@ export default {
 
                 this.seasons = response.data;
             } catch (error) {
-                console.error('Error fetching announcements:', error);
+                console.error('Error fetching announcements: ', error);
+            }
+        },
+        async fetchAnnouncements() {
+            try {
+                const response = await axios.get('/announcements', {
+                    params: {}
+                });
+
+                this.announcements = response.data
+            } catch (error) {
+                console.error('Error fetching announcements: ', error);
             }
         },
     },
     mounted() {
         this.fetchSeasons();
+        this.fetchAnnouncements();
     },
 };
 </script>

@@ -116,6 +116,6 @@ class SeasonsController extends Controller
             }
         }
 
-        return $lastId;
+        return 'Season successfully saved. Press ESC to continue.';
     }
 }

@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { Form, Head } from '@inertiajs/vue3';
+import { QuillEditor } from '@vueup/vue-quill';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { dashboard } from '@/routes';
 import { create } from '@/routes/announcements';
 import { type BreadcrumbItem } from '@/types';
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -31,43 +32,35 @@ const breadcrumbs: BreadcrumbItem[] = [
                 v-bind="create.form()"
                 v-slot="{ errors, processing }"
                 class="flex flex-col gap-6"
+                @submit.prevent="handleSubmit"
             >
-                <div class="grid gap-6 items-center justify-center">
-                    <div class="grid gap-2 inline-flex">
+                <div class="gap-6 md:pl-28 md:pr-28 items-center justify-center">
+                    <div class="gap-2 inline">
                         <div>
-                            <Label for="announcement">Announcement</Label>
-                            <Input
-                                id="announcement"
-                                type="text"
-                                required
-                                name="announcement"
-                                :model-value="announcement"
-                                autofocus
-                                :disabled="isUpdate"
-                                :tabindex="1"
+                            <Label class="mb-3" for="announcement-editor">Announcement</Label>
+                            <QuillEditor
+                                id="announcement-editor" 
+                                v-model:content="announcement"
+                                contentType="html"
+                                theme="snow" 
+                                toolbar="minimal" 
                             />
+                            <input hidden="hidden" name="announcement" type="text" v-model="announcement" /> 
+                            <input hidden="hidden" name="announcement_id" type="number" v-model="announcementId" />
                             <InputError :message="errors.announcement" />
-                    
-                            <Input
-                                name="announcementId"
-                                :model-value="announcementId"
-                                v-if="isUpdate"
-                                hidden
-                            />
                         </div>
 
+                        <Button
+                            type="submit"
+                            class="mt-4 w-full flex"
+                            :tabindex="6"
+                            data-test="season-button"
+                        >
+                            <Spinner v-if="processing" />
+                            {{ buttonAction }} Announcement
+                        </Button>
                     </div>
 
-                    <Button
-                        type="submit"
-                        class="mt-4 w-full flex"
-                        :tabindex="6"
-                        :disabled="processing"
-                        data-test="season-button"
-                    >
-                        <Spinner v-if="processing" />
-                        {{ buttonAction }} Announcement
-                    </Button>
                 </div>
             </Form>
         </div>
@@ -76,13 +69,15 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 <script lang="ts">
 import axios from "axios";
+import { Quill } from '@vueup/vue-quill';
 
 export default {
     data() {
         return {
             announcement: '',
             buttonAction: 'Create',
-            isUpdate: false
+            isUpdate: false,
+            announcementId: '0',
         }
     },
     methods: {
@@ -99,54 +94,27 @@ export default {
                 return {};
             }
 
-            const announcementId = queryString.substring(queryString.indexOf("announcement_id=") + 10);
+            this.announcementId = queryString.substring(queryString.indexOf("announcement_id=") + 16);
 
-            if (parseInt(announcementId) > 0) {
+            if (parseInt(this.announcementId) > 0) {
                 try {
                     const response = await axios.get("/single-announcement", {
-                        params: { id: announcementId }
+                        params: { announcement_id: this.announcementId }
                     });
 
                     this.isUpdate = true;
                     this.announcement = response.data[0].announcement;
 
                     this.buttonAction = "Update";
-
-                    for (let i = 1; i <= parseInt(response.data[0].numTeams); i++) {
-                        // const parsedTeamName = 'teamName' + i;
-                        // const parsedTeamColor = 'teamColor' + i;
-                        // const parsedTeamId = 'teamId' + i;
-                        // this.waitForElement('#team' + i, (element) => {
-                        //     element.value = response.data[0][parsedTeamName];
-                        // });
-
-                        // this.waitForElement('#team' + i + 'color', (element) => {
-                        //     element.value = response.data[0][parsedTeamColor];
-                        // });
-
-                        // this.waitForElement('#team' + i + 'id', (element) => {
-                        //     element.value = response.data[0][parsedTeamId];
-                        // });
-                    }
                 } catch (error) {
                     console.error("Error fetching season:", error);
                 }
             }
         },
-        waitForElement(selector, callback) {
-            const observer = new MutationObserver((mutations, observer) => {
-                const element = document.querySelector(selector);
-                if (element) {
-                    observer.disconnect();
-                    callback(element);
-                }
-            });
-
-            observer.observe(document.body, {
-                childList: true,
-                subtree: true,
-            });
-        }
+        handleSubmit() {
+            const quill = new Quill('#announcement-editor');
+            this.announcement = quill.root.innerHTML;
+        },
     },
     mounted() {
         this.getQueryParams();
