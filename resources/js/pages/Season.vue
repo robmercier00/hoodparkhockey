@@ -154,16 +154,34 @@ const breadcrumbs: BreadcrumbItem[] = [
                         </div>
                     </div>
 
-                    <Button
-                        type="submit"
-                        class="mt-4 w-full flex"
-                        :tabindex="6"
-                        :disabled="processing"
-                        data-test="season-button"
-                    >
-                        <Spinner v-if="processing" />
-                        {{ buttonAction }} Season
-                    </Button>
+                    <div class="items-center justify-center">
+                        <div class="mt-4 md:w-1/2 w-full inline-flex items-center justify-center">
+                            <Button
+                                type="submit"
+                                class="sm:w-1/2 w-full "
+                                :tabindex="6"
+                                :disabled="processing"
+                                data-test="season-button"
+                            >
+                                <Spinner v-if="processing" />
+                                {{ buttonAction }} Season
+                            </Button>
+                        </div>
+
+                        <div class="mt-4 md:w-1/2 w-full inline-flex items-center justify-center">
+                            <Button
+                                type="button"
+                                class="sm:w-1/2 w-full "
+                                :tabindex="7"
+                                :disabled="processing || hasSchedule"
+                                data-test="schedule-button"
+                                @click="createSchedule()"
+                            >
+                                <Spinner v-if="processing" />
+                                Create Schedule
+                            </Button>
+                        </div>
+                    </div>
                 </div>
             </Form>
         </div>
@@ -184,7 +202,8 @@ export default {
             showTeams: false,
             buttonAction: 'Create',
             isUpdate: false,
-            seasonId: ''
+            seasonId: '',
+            hasSchedule: false
         }
     },
     methods: {
@@ -229,6 +248,7 @@ export default {
                     this.currentSeason = response.data[0].currentSeason === 1 ? true : false;
                     this.showTeams = true;
                     this.buttonAction = "Update";
+                    this.hasSchedule = response.data[0].hasSchedule;
 
                     for (let i = 1; i <= parseInt(response.data[0].numTeams); i++) {
                         const parsedTeamName = 'teamName' + i;
@@ -265,8 +285,41 @@ export default {
                 subtree: true,
             });
         },
-        teamPlayers(teamId: string) {
-            
+        async createSchedule() {
+            // Validate dates
+            if (this.startDate === '' || this.endDate === '') {
+                console.error("Invalid date(s) provided.");
+                return null;
+            }
+
+            // Convert to Date objects if strings are provided
+            const start = (this.startDate instanceof Date) ? this.startDate : new Date(this.startDate);
+            const end = (this.endDate instanceof Date) ? this.endDate : new Date(this.endDate);
+
+            // Ensure start is before end
+            // const msInWeek = 7 * 24 * 60 * 60 * 1000;
+            // const diffMs = Math.abs(end - start);
+
+            // Calculate the difference in milliseconds between dt2 and dt1
+            let diff =(end.getTime() - start.getTime()) / 1000;
+            // Convert the difference from milliseconds to weeks by dividing it by the number of milliseconds in a week
+            diff /= (60 * 60 * 24 * 7);
+            // Return the absolute value of the rounded difference as the result
+            const numWeeks = Math.abs(Math.round(diff));
+
+            if (confirm('Create schedule with ' + numWeeks + ' weeks plus Playoffs?')) {
+                const response = await axios.post("/create-schedule", {
+                    params: {
+                        schedule_length: numWeeks,
+                        season_id: this.seasonId,
+                        start_date: this.startDate,
+                        end_date: this.endDate
+                    }
+                });
+
+                alert(response.data);
+                this.hasSchedule = true;
+            }
         }
     },
     mounted() {

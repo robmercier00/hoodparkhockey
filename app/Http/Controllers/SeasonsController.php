@@ -41,6 +41,11 @@ class SeasonsController extends Controller
                         ->selectRaw('COUNT(1)')
                         ->whereColumn('teams.season_id', 'seasons.id')
                 ])
+                ->addSelect([
+                    'hasSchedule' => DB::table('schedules')
+                        ->selectRaw('COUNT(1)')
+                        ->whereColumn('schedules.season_id', 'seasons.id')
+                ])
                 ->where('id', $request->id)
                 ->get();
 
